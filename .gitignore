@@ -25,4 +25,5 @@ playground.xcworkspace
 # .swiftpm
 
 .build/
-FoodDiary/FoodDiary.xcodeproj/project.xcworkspace/xcuserdata/ej34351.xcuserdatad/UserInterfaceState.xcuserstate
+*.xcuserstate
+*.DS_Store
