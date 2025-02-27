@@ -8,7 +8,7 @@
 import SwiftUI
 struct ListView: View {
     
-    @ObservedObject var spotsViewModel: SpotViewModel
+    @ObservedObject var spotsViewModel = SpotViewModel()
     @State private var showAddTaskView:Bool = false
     
     var body: some View {

@@ -34,7 +34,7 @@ struct MainView: View {
                     .disabled(locationManager.showLocationAlert)
                 }
                 Spacer()
-                NavigationLink(destination: ContentView()) {
+                NavigationLink(destination: ListView()) {
                     Text("Next")
                 }
                 .disabled(!permissionsModel.areAllPermissionsGranted)
