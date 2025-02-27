@@ -15,6 +15,7 @@ struct AddSpotView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var title = ""
     @State private var description = ""
+    @State private var review = 1
     @State private var image: UIImage?
     
     @State private var showImagePicker: Bool = false
@@ -40,6 +41,31 @@ struct AddSpotView: View {
                     }) {
                         Label("Select an image", systemImage: "photo")
                         
+                    }
+                    // Add 5 stars
+                    Section() {
+                        Text("Rate this spot")
+                        Text(review.description)
+                        ZStack {
+                            
+                            HStack {
+                                ForEach(0..<5) { index in
+                                    let isFilled = index < Int(review)  // Determine whether the star should be filled
+                                    Image(systemName: isFilled ? "star.fill" : "star")
+                                        .foregroundColor(isFilled ? .yellow : .gray)  // Use .yellow for filled star
+                                        .frame(width: 30, height: 30)  // Optional: Set size for the stars
+                                }
+                            }
+                            
+                            .gesture(
+                                DragGesture(minimumDistance: 0)
+                                    .onChanged { value in
+                                        let dragPosition = value.location.x
+                                        let newRating = min(5,max(1,dragPosition/25))
+                                        review = Int(newRating)
+                                    }
+                            )
+                        }
                     }
                     if let image = image {
                             Image(uiImage: image)
@@ -71,7 +97,7 @@ struct AddSpotView: View {
                 // Recuerda guardar la ubicacion y la imagen cuando le pique save
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button("Save"){
-                        spotViewModel.add(title: title, description: description, image: image, latitude: userLatitude, longitude: userLongitude)
+                        spotViewModel.add(title: title, description: description, review: review, image: image, latitude: userLatitude, longitude: userLongitude)
                         presentationMode.wrappedValue.dismiss()
                     }
                 }

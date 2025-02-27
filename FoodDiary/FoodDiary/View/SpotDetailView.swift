@@ -7,21 +7,24 @@
 
 import SwiftUI
 import MapKit
-struct TaskDetailView: View {
-    var task: Spot
+struct SpotDetailView: View {
+    var spot: Spot
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
-                Text(task.title)
-                    .font(.title3)
+                Text(spot.title)
+                    .font(.title)
                     .fontWeight(.bold)
-                    .foregroundColor(.white)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(LinearGradient(colors: [Color.blue, Color.purple], startPoint: .leading, endPoint: .trailing))
                     .cornerRadius(12)
-                    .shadow(radius: 10)
+                HStack {
+                    ForEach(0 ..< spot.review, id: \.self) { star in
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                    }
+                }
                 
                 VStack(alignment: .leading, spacing: 10){
                     Text("Descripción de mi trabajo")
@@ -29,11 +32,11 @@ struct TaskDetailView: View {
                         .fontWeight(.semibold)
                         .foregroundColor(.gray)
                     
-                    Text(task.description)
+                    Text(spot.description)
                         .font(.body)
                         .multilineTextAlignment(.leading)
                         .padding()
-                    if let image = task.image {
+                    if let image = spot.image {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
@@ -42,7 +45,7 @@ struct TaskDetailView: View {
                     }
                     
                     // Mostrar la ubicación utilizando un mapa:
-                    if let latitude = task.latitude, let longitude = task.longitude {
+                    if let latitude = spot.latitude, let longitude = spot.longitude {
                         let coords = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
                         Map(initialPosition: MapCameraPosition.region(coords))
                         .frame(height: 200)
@@ -58,6 +61,6 @@ struct TaskDetailView: View {
 }
 
 #Preview {
-    TaskDetailView(task: Spot(title: "Ejemplo", description: "Ejemplo de una descripcion")
+    SpotDetailView(spot: Spot(title: "Ejemplo", description: "Ejemplo de una descripcion",review: 4)
     )
 }

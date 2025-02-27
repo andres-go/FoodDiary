@@ -14,9 +14,9 @@ struct ListView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(spotsViewModel.spots) { task in
-                    NavigationLink(destination: TaskDetailView(task: task)) {
-                        Text(task.title)
+                ForEach(spotsViewModel.spots) { spot in
+                    NavigationLink(destination: SpotDetailView(spot: spot)) {
+                        Text(spot.title)
                     }
                 }
                 .onDelete(perform: deleteTask)
@@ -38,6 +38,7 @@ struct ListView: View {
                 AddSpotView(spotViewModel: spotsViewModel)
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     func deleteTask(at offset: IndexSet) {
