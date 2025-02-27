@@ -1,0 +1,27 @@
+{
+  "configurations" : [
+    {
+      "id" : "0271D761-99FD-44A3-8A66-075F0C3C9348",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "locationScenario" : {
+      "identifier" : "Mexico City, Mexico",
+      "referenceType" : "built-in"
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:FoodDiary.xcodeproj",
+      "identifier" : "7DE74E5F2D6D647C0034CEDD",
+      "name" : "FoodDiary"
+    }
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}
