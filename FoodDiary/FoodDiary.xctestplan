@@ -1,0 +1,27 @@
+{
+  "configurations" : [
+    {
+      "id" : "48B73908-3920-455A-A697-A6CEFC3DB967",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "locationScenario" : {
+      "identifier" : "Hong Kong, China",
+      "referenceType" : "built-in"
+    },
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:FoodDiary.xcodeproj",
+      "identifier" : "7DE74E5F2D6D647C0034CEDD",
+      "name" : "FoodDiary"
+    }
+  },
+  "testTargets" : [
+
+  ],
+  "version" : 1
+}

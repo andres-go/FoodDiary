@@ -8,6 +8,7 @@
 
 /* Begin PBXFileReference section */
 		7DE74E602D6D647C0034CEDD /* FoodDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7DE74EAD2D7021530034CEDD /* FoodDiary.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = FoodDiary.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +33,7 @@
 		7DE74E572D6D647C0034CEDD = {
 			isa = PBXGroup;
 			children = (
+				7DE74EAD2D7021530034CEDD /* FoodDiary.xctestplan */,
 				7DE74E622D6D647C0034CEDD /* FoodDiary */,
 				7DE74E612D6D647C0034CEDD /* Products */,
 			);
