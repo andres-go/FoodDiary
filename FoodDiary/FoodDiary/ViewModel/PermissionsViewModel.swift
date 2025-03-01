@@ -16,9 +16,13 @@ class PermissionsViewModel: ObservableObject {
     @Published var locationGranted = false
     private var locationManager = LocationManager()
     
+    init() {
+        self.locationManager.$status
+            .assign(to: &self.$locationGranted)
+    }
     
     var areAllPermissionsGranted: Bool {
-        return cameraGranted && locationManager.showLocationAlert
+        return cameraGranted && locationGranted
     }
     
     func requestCameraAccess() {
@@ -28,10 +32,9 @@ class PermissionsViewModel: ObservableObject {
             }
         }
     }
+    
     func requestLocationAccess() {
         locationManager.requestLocation()
-        self.locationGranted = true
-        
     }
 }
 

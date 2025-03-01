@@ -9,11 +9,14 @@ import SwiftUI
 import MapKit
 
 struct Onboarding2View: View {
+    @StateObject private var onboardingManager = StorageViewModel()
     @StateObject private var permissionsModel = PermissionsViewModel()
-    @State private var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 0, longitude: 0), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    @State private var locationManager = LocationManager()
+    @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
+    
     
     var body: some View {
-        NavigationView() {
+        NavigationStack() {
             ZStack {
                 Color(.systemGray5)
                     .ignoresSafeArea()
@@ -29,7 +32,11 @@ struct Onboarding2View: View {
                     
                     
                     ZStack(alignment:.bottomTrailing) {
-                        Map()
+                        
+                            Map(position: $position)
+                            .frame(width: 350, height: 350)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .disabled(true)
                             
                         Image(systemName: "pin.fill")
                             .resizable()
@@ -48,7 +55,7 @@ struct Onboarding2View: View {
                                 .foregroundStyle(.white)
                                 .shadow(color:  Color(.systemGray2), radius: !permissionsModel.locationGranted ? 2 : 0, x: !permissionsModel.locationGranted ? 3 : 0, y: !permissionsModel.locationGranted ? 3 : 0)
                             VStack {
-                                Text("Camera Access.")
+                                Text("Location Access.")
                                     .font(.system(size: 16))
                                     .foregroundStyle(.foodGreen)
                             }
@@ -58,7 +65,6 @@ struct Onboarding2View: View {
                         .padding(.top, -10)
                         
                     }
-                    .disabled(permissionsModel.locationGranted)
                     
                     Spacer()
                     NavigationLink(destination: ListView()) {
@@ -76,11 +82,14 @@ struct Onboarding2View: View {
                         .frame(width: 180, height: 60)
                     }
                     .disabled(!permissionsModel.locationGranted)
-                    
+                    .onDisappear {
+                        onboardingManager.hasCompletedOnboarding = true
+                    }
                     Spacer()
                 }
             }
-            
+            .navigationBarBackButtonHidden(true)
+            .toolbar(.hidden)
         }
     }
 }

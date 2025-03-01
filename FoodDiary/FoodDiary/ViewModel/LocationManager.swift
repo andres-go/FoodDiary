@@ -12,7 +12,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         center: CLLocationCoordinate2D(latitude: 0, longitude: 0),
         span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
     )
-    @Published var showLocationAlert = false
+    @Published var status = false
     private var locationManager = CLLocationManager()
 
     override init() {
@@ -30,9 +30,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         DispatchQueue.main.async {
             switch status {
             case .denied, .restricted:
-                self.showLocationAlert = false
+                self.status = false
             case .authorizedWhenInUse, .authorizedAlways:
-                self.showLocationAlert = true
+                self.status = true
                 self.locationManager.startUpdatingLocation()
             default:
                 break

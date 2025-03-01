@@ -50,6 +50,7 @@ struct AddSpotView: View {
                             .padding(.horizontal, 10)
                             .background(Color(.white))
                             .clipShape(RoundedRectangle(cornerRadius: 5))
+                            .autocorrectionDisabled()
                         
                         ZStack(alignment: .topLeading) {
                             TextEditor(text: $description)
@@ -57,6 +58,7 @@ struct AddSpotView: View {
                                 .padding(.horizontal, 8)
                                 .background(Color(.white))
                                 .clipShape(RoundedRectangle(cornerRadius: 5))
+                                .autocorrectionDisabled()
                             
                             if description.isEmpty {
                                 Text("Food decription")

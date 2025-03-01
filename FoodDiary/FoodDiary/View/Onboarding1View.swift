@@ -10,7 +10,7 @@ import SwiftUI
 struct Onboarding1View: View {
     @StateObject private var permissionsModel = PermissionsViewModel()
     var body: some View {
-        NavigationView() {
+        NavigationStack() {
             ZStack {
                 Color(.systemGray5)
                     .ignoresSafeArea()

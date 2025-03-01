@@ -7,13 +7,13 @@
 
 import SwiftUI
 struct ListView: View {
-    @Namespace var namespace
     
     @ObservedObject var spotsViewModel = SpotViewModel()
+    
     @State private var showAddTaskView:Bool = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 ZStack {
                     Color.foodGreen

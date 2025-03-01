@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct FoodDiaryApp: App {
+    @StateObject private var onboardingManager = StorageViewModel()
     var body: some Scene {
         WindowGroup {
-            Onboarding1View()
+            if onboardingManager.hasCompletedOnboarding {
+                ListView()
+            } else {
+                Onboarding1View()
+            }
         }
     }
 }
