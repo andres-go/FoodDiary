@@ -10,6 +10,8 @@ import SwiftUI
 import MapKit
 
 struct AddSpotView: View {
+    
+    
     @ObservedObject var spotViewModel: SpotViewModel
     
     @Environment(\.dismiss) var dismiss
@@ -17,6 +19,7 @@ struct AddSpotView: View {
     @State private var description = ""
     @State private var review = 1
     @State private var image: UIImage?
+
     
     @State private var showImagePicker: Bool = false
     @State private var sourceType: UIImagePickerController.SourceType = .camera
@@ -82,46 +85,44 @@ struct AddSpotView: View {
                  
                 
                 // Additional stuff
-                // image and camera
-                VStack{
+
+                VStack {
+                    // Map
+                    VStack(alignment: .leading) {
+                        Text("Choose Location")
+                            .font(.headline)
+                        Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
+                            .frame(height: 200)
+                            .frame(width: 380)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .padding(.vertical)
+                    
+                    // image and camera
                     if let image = image {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
-                            .frame(height: 300)
+                            .frame(height: 80)
+                            .cornerRadius(10)
                     }
-                    
-                    Button("Agregar foto") {
-                        sourceType = .camera  // Use the camera
-                        showImagePicker = true
-                    }
-                    .padding()
-                    .sheet(isPresented: $showImagePicker) {
-                        ImagePicker(selectedImage: $image, sourceType: sourceType)
-                    }
-                }
-                // Map
-                Section(header: Text("Choose Location")) {
-                    Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
-                        .frame(height: 200)
 
+
+                    HStack(spacing: 20) {
+                        Button(action: {
+                            sourceType = .camera
+                            showImagePicker = true
+                        }) {
+                            Label("Take Photo", systemImage: "camera")
+                        }
+                        .buttonStyle(.bordered)
+
+                    }
                 }
+
                 
-                
-                // Photo Library
-                Button(action: {
-                    
-                }) {
-                    Label("Select an image", systemImage: "photo")
-                }
-                
-                if let image = image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height:200)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                }
+
+
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
