@@ -19,10 +19,11 @@ struct AddSpotView: View {
     @State private var image: UIImage?
     
     @State private var showImagePicker: Bool = false
-    @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
+    @State private var sourceType: UIImagePickerController.SourceType = .camera
     
     // Nuevos estados
     @State private var locationManager = LocationManager()
+    @State private var position: MapCameraPosition = .userLocation(fallback: .automatic)
     @State private var userLatitude: Double?
     @State private var userLongitude: Double?
     
@@ -42,6 +43,7 @@ struct AddSpotView: View {
                             Text("Add a meal")
                                 .font(.system(size: 40, weight: .bold, design: .default))
                                 .foregroundStyle(.white)
+                                .padding(.top, 30)
                             Spacer()
                         }
                         // Restaurant and description
@@ -76,31 +78,55 @@ struct AddSpotView: View {
                             .bold()
                         ReviewView(review: $review)
                         Spacer()
+                        
+                        HStack(spacing: 20) {
+                            Button(action: {
+                                sourceType = .camera
+                                showImagePicker = true
+                            }) {
+                                Label("Take Photo", systemImage: "camera")
+                                    .foregroundStyle(.white)
+                            }
+                            .buttonStyle(.bordered)
+                        }
+                        Spacer()
                     }
                     .padding(.horizontal, 20)
                 }
-                .frame(height: 330)
+                .frame(height: 400)
                 Spacer()
                  
                 
                 // Additional stuff
-                
-                
-                
-                // Photo Library
-                Button(action: {
-                    
-                }) {
-                    Label("Select an image", systemImage: "photo")
-                }
-                
-                if let image = image {
+                ScrollView {
+                    //Image
+                    if let image = image {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
-                            .frame(height:200)
-                            .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(height: 300)
+                            .cornerRadius(10)
+                    }
+                    
+                    
+                    VStack {
+                        // Map
+                        VStack(alignment: .leading) {
+                            Text("Your Location:")
+                                .font(.headline)
+                                .foregroundStyle(.foodGreen)
+                            Map(position: $position)
+                                .frame(width: 350, height: 200)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .disabled(true)
+                                .shadow(color: Color(.systemGray4), radius: 2, x: 3, y: 3)
+                        }
+                        .padding(.vertical)
+                    }
                 }
+            }.sheet(isPresented: $showImagePicker) {
+                ImagePicker(selectedImage: $image, sourceType: sourceType)
+                    .edgesIgnoringSafeArea(.all)
             }
             .toolbar{
                 ToolbarItem(placement: .navigationBarLeading){
@@ -113,12 +139,14 @@ struct AddSpotView: View {
                 // Saves the "spot" in the array of spots
                 ToolbarItem(placement: .navigationBarTrailing){
                     Button("Save"){
+                        userLatitude = locationManager.region.center.latitude
+                        userLongitude = locationManager.region.center.longitude
                         spotViewModel.add(title: title, description: description, review: review, image: image, latitude: userLatitude, longitude: userLongitude)
                         dismiss()
                     }
                     .foregroundStyle(.white)
                 }
-            }
+            }.toolbarBackground(.hidden)
         }
         .navigationBarBackButtonHidden(true)
     }

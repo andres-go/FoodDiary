@@ -89,10 +89,17 @@ struct SpotDetailView: View {
                                 Map(initialPosition: MapCameraPosition.region(coords)) {
                                     Annotation("", coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
                                     {
-                                        Image(.burger)
-                                            .resizable()
-                                            .frame(width:40, height: 40)
-                                            .clipShape(Circle())
+                                        if spot.image != nil {
+                                            Image(uiImage: spot.image!)
+                                                .resizable()
+                                                .frame(width:40, height: 40)
+                                                .clipShape(Circle())
+                                        } else {
+                                            Image(systemName: "mappin.circle.fill")
+                                                .resizable()
+                                                .frame(width:40, height: 40)
+                                                .clipShape(Circle())
+                                        }
                                     }
                                 }
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
