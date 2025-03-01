@@ -37,6 +37,7 @@ struct Onboarding2View: View {
                             .frame(width: 350, height: 350)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
                             .disabled(true)
+                            .shadow(color: Color(.systemGray4), radius: 2, x: 3, y: 3)
                             
                         Image(systemName: "pin.fill")
                             .resizable()
