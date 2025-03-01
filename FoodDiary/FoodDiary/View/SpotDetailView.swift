@@ -78,6 +78,7 @@ struct SpotDetailView: View {
                             Color.foodGreen
                                 .ignoresSafeArea()
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .shadow(color: Color(.systemGray2), radius: 2, x: 3, y: 3)
                             VStack {
                         // Mostrar la ubicación utilizando un mapa:
                                 let coords = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
@@ -104,7 +105,6 @@ struct SpotDetailView: View {
                                 }
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                                 .frame(width: 320, height: 300)
-                                .shadow(color: Color(.systemGray2), radius: 2, x: 3, y: 3)
                             }
                                 .frame(width: 370)
                                 .padding(.top, 20)
