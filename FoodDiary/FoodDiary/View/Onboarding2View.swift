@@ -46,26 +46,26 @@ struct Onboarding2View: View {
                             Rectangle()
                                 .clipShape(RoundedRectangle(cornerRadius: 5))
                                 .foregroundStyle(.white)
-                                .shadow(color:  Color(.systemGray2), radius: !permissionsModel.cameraGranted ? 2 : 0, x: !permissionsModel.cameraGranted ? 3 : 0, y: !permissionsModel.cameraGranted ? 3 : 0)
+                                .shadow(color:  Color(.systemGray2), radius: !permissionsModel.locationGranted ? 2 : 0, x: !permissionsModel.locationGranted ? 3 : 0, y: !permissionsModel.locationGranted ? 3 : 0)
                             VStack {
                                 Text("Camera Access.")
                                     .font(.system(size: 16))
                                     .foregroundStyle(.foodGreen)
                             }
                         }
-                        .opacity(!permissionsModel.cameraGranted ? 1 : 0.3)
+                        .opacity(!permissionsModel.locationGranted ? 1 : 0.3)
                         .frame(width: 280, height: 40)
                         .padding(.top, -10)
                         
                     }
-                    .disabled(permissionsModel.cameraGranted)
+                    .disabled(permissionsModel.locationGranted)
                     
                     Spacer()
                     NavigationLink(destination: ListView()) {
                         ZStack {
                             Rectangle()
                                 .clipShape(RoundedRectangle(cornerRadius: 15))
-                                .foregroundStyle(permissionsModel.cameraGranted ? Color.foodGreen : Color.gray)
+                                .foregroundStyle(permissionsModel.locationGranted ? Color.foodGreen : Color.gray)
                                 .shadow(color: Color(.systemGray2), radius: 2, x: 3, y: 3)
                             VStack {
                                 Text("Next")
@@ -75,7 +75,7 @@ struct Onboarding2View: View {
                         }
                         .frame(width: 180, height: 60)
                     }
-                    .disabled(!permissionsModel.cameraGranted)
+                    .disabled(!permissionsModel.locationGranted)
                     
                     Spacer()
                 }

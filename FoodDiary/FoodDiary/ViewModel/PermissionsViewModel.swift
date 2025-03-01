@@ -13,6 +13,7 @@ import AVFoundation
 
 class PermissionsViewModel: ObservableObject {
     @Published var cameraGranted = false
+    @Published var locationGranted = false
     private var locationManager = LocationManager()
     
     
@@ -29,6 +30,7 @@ class PermissionsViewModel: ObservableObject {
     }
     func requestLocationAccess() {
         locationManager.requestLocation()
+        self.locationGranted = true
         
     }
 }
