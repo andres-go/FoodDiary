@@ -34,6 +34,7 @@ struct AddSpotView: View {
                 ZStack {
                     Color.foodGreen
                         .clipShape(.rect(bottomLeadingRadius: 10, bottomTrailingRadius: 10))
+                        .shadow(color: Color(.systemGray3), radius: 4, x: 5, y: 5)
                         .ignoresSafeArea()
                     VStack {
                         // Title
