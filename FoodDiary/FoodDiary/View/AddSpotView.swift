@@ -117,6 +117,8 @@ struct AddSpotView: View {
                         }
                         .buttonStyle(.bordered)
 
+                    }.sheet(isPresented: $showImagePicker) {
+                        ImagePicker(selectedImage: $image, sourceType: sourceType)
                     }
                 }
 
