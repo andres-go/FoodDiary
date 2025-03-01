@@ -19,9 +19,9 @@ struct AddSpotView: View {
     @State private var image: UIImage?
     
     @State private var showImagePicker: Bool = false
-    @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
+    @State private var sourceType: UIImagePickerController.SourceType = .camera
     
-    // Nuevos estados
+    // map states
     @State private var locationManager = LocationManager()
     @State private var userLatitude: Double?
     @State private var userLongitude: Double?
@@ -81,7 +81,30 @@ struct AddSpotView: View {
                  
                 
                 // Additional stuff
-                
+                // image and camera
+                VStack{
+                    if let image = image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 300)
+                    }
+                    
+                    Button("Agregar foto") {
+                        sourceType = .camera  // Use the camera
+                        showImagePicker = true
+                    }
+                    .padding()
+                    .sheet(isPresented: $showImagePicker) {
+                        ImagePicker(selectedImage: $image, sourceType: sourceType)
+                    }
+                }
+                // Map
+                Section(header: Text("Choose Location")) {
+                    Map(coordinateRegion: $locationManager.region, showsUserLocation: true)
+                        .frame(height: 200)
+
+                }
                 
                 
                 // Photo Library
