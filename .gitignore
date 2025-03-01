@@ -27,3 +27,4 @@ playground.xcworkspace
 .build/
 *.xcuserstate
 *.DS_Store
+*.xcuserdata

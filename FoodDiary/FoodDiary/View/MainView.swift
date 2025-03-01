@@ -11,6 +11,7 @@ struct MainView: View {
     @StateObject private var permissionsModel = PermissionsViewModel()
     @StateObject private var locationManager = LocationManager()
     var body: some View {
+        
         NavigationView() {
             VStack(spacing:30) {
                 Text("Welcome!")
