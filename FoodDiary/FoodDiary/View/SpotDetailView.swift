@@ -16,26 +16,35 @@ struct SpotDetailView: View {
                 Text(spot.title)
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    .foregroundStyle(.foodGreen)
                     .cornerRadius(12)
-                HStack {
-                    ForEach(0 ..< spot.review, id: \.self) { star in
-                        Image(systemName: "star.fill")
-                            .foregroundColor(.yellow)
+                ZStack(alignment: .center) {
+                    Color(.foodGreen)
+                        .frame(height: 45)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                    HStack {
+                        ForEach(0 ..< spot.review, id: \.self) { star in
+                            Image(systemName: "star.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.yellow)
+                        }
                     }
                 }
-                
-                VStack(alignment: .leading, spacing: 10){
-                    Text("Descripción de mi trabajo")
-                        .font(.title2)
+                .frame(width: CGFloat(spot.review)*40+20)
+                VStack() {
+                    Text(spot.description)
+                        .font(.system(size: 16))
                         .fontWeight(.semibold)
                         .foregroundColor(.gray)
-                    
-                    Text(spot.description)
-                        .font(.body)
-                        .multilineTextAlignment(.leading)
-                        .padding()
+                        .padding(5)
+                }
+                .frame(height: 100, alignment: .topLeading)
+                .background(.white)
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                
+                VStack {
                     if let image = spot.image {
                         Image(uiImage: image)
                             .resizable()
@@ -47,7 +56,15 @@ struct SpotDetailView: View {
                     // Mostrar la ubicación utilizando un mapa:
                     if let latitude = spot.latitude, let longitude = spot.longitude {
                         let coords = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitude, longitude: longitude), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-                        Map(initialPosition: MapCameraPosition.region(coords))
+                        Map(initialPosition: MapCameraPosition.region(coords)) {
+                            Annotation("", coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+                            {
+                                Image(.burger)
+                                    .resizable()
+                                    .frame(width:40, height: 40)
+                                    .clipShape(Circle())
+                            }
+                        }
                         .frame(height: 200)
                     }
                     
@@ -55,12 +72,12 @@ struct SpotDetailView: View {
             }
             .padding()
         }
-        .background(Color.gray.opacity(0.2))
+        .background(Color(.systemGray5))
         .navigationTitle("Task Details")
     }
 }
 
 #Preview {
-    SpotDetailView(spot: Spot(title: "Ejemplo", description: "Ejemplo de una descripcion",review: 4)
+    SpotDetailView(spot: Spot(title: "Ejemplo de spot", description: "Dato falso aaaaaaaaaa  aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa aaaaaaaaaa", review: 5, latitude: 40.7128, longitude: -74.0060)
     )
 }
