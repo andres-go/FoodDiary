@@ -15,16 +15,15 @@ struct ReviewView: View {
     var body: some View {
         VStack {
             ZStack {
-                
                 HStack(spacing:0) {
                     // Have a selector for the review system and change the fill for selected.
                     ForEach(0..<5) { index in
                         let isFilled = index < Int(review)
-                        Image(systemName: isFilled ? "star.fill" : "star")
+                        Image(systemName: "star.fill")
                             .resizable()
-                            .foregroundColor(isFilled ? .yellow : .gray)
+                            .foregroundColor(isFilled ? .yellow : Color(.systemGray6))
                             .frame(width: starWidth, height: starWidth)
-                            .padding(padding)
+                            .padding(.horizontal, padding)
                     }
                 }
                 .gesture(
